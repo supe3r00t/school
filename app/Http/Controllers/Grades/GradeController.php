@@ -28,6 +28,11 @@ class GradeController extends Controller
 
     {
 
+        if (Grade::where('Name->ar',$request->Name)->orwhere('Name->en',$request->Name_en)->exists()){
+
+            return redirect()->back()->withErrors(trans('Grades_trans.exists'));
+        }
+
         try {
 
             $validated = $request->validated();
