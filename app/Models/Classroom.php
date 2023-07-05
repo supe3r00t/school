@@ -18,7 +18,7 @@ class Classroom extends Model
     protected $fillable=['Name_Class','Grade_id'];
     public function Grades()
     {
-        return $this->belongsTo('Grade', 'Grade_id');
+        return $this->belongsTo('App\Models\Grade', 'Grade_id');
     }
 
 }

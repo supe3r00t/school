@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Grades;
 use App\Http\Controllers\Controller;
+use App\Models\Classroom;
 use CodeZero\UniqueTranslation\UniqueTranslationRule;
 
 use App\Http\Requests\StoreGrades;
