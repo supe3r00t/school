@@ -150,7 +150,7 @@ class ClassroomController extends Controller
     {
         $Grades = Grade::all();
         $Search = Classroom::select('*')->where('Grade_id','=',$request->Grade_id)->get();
-        return view('pages.My_Classes.My_Classes',compact('Grades'))->withDetails($Search);
+        return view('pages.My_Classes.index',compact('Grades'))->withDetails($Search);
 
     }
 

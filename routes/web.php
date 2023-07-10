@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Classrooms\ClassroomController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Sections\SectionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,13 +54,13 @@ Route::group(
     Route::resource('Classrooms', 'App\Http\Controllers\Classrooms\ClassroomController');
     Route::post('delete_all', 'ClassroomController@delete_all')->name('delete_all');
 
-    Route::post('Filter_Classes', 'ClassroomController@Filter_Classes')->name('Filter_Classes');
+    Route::post('Filter_Classes',[ClassroomController::class,'Filter_Classes'])->name('Filter_Classes');
 
 //==============================Sections============================
 
-    Route::resource('Sections', 'SectionController');
+    Route::resource('Sections', 'App\Http\Controllers\Sections\SectionController');
 
-    Route::get('/classes/{id}', 'SectionController@getclasses');
+    Route::get('/classes/{id}', [App\Http\Controllers\Sections\SectionController::class,'getclasses'])->name('getclasses');
 
 
 });
