@@ -63,7 +63,14 @@ Route::group(
     Route::get('/classes/{id}', [App\Http\Controllers\Sections\SectionController::class,'getclasses'])->name('getclasses');
 
 
+//==============================Parent============================
+
+
+        Route::view('add_parent','livewire.show_form');
+
+
 });
+
 
 
 
