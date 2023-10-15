@@ -1,46 +1,38 @@
 <?php
-
 namespace App\Http\Controllers\Sections;
-
-use App\Exceptions\Handler;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreSections;
 use App\Models\Classroom;
 use App\Models\Grade;
-use App\Models\section;
+use App\Models\Section;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreSections;
 
 class SectionController extends Controller
 {
+
     /**
      * Display a listing of the resource.
+     *
+     * @return Response
      */
-
-
     public function index()
     {
-
         $Grades = Grade::with(['Sections'])->get();
         $list_Grades = Grade::all();
-//        $teachers = Teacher::all();
+        $teachers = Teacher::all();
+        return view('pages.Sections.Sections',compact('Grades','list_Grades','teachers'));
 
-        return view('pages.Sections.index',compact('Grades','list_Grades'));
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @return Response
      */
     public function store(StoreSections $request)
     {
+
         try {
 
             $validated = $request->validated();
@@ -50,7 +42,7 @@ class SectionController extends Controller
             $Sections->Class_id = $request->Class_id;
             $Sections->Status = 1;
             $Sections->save();
-//            $Sections->teachers()->attach($request->teacher_id);
+            $Sections->teachers()->attach($request->teacher_id);
             toastr()->success(trans('messages.success'));
 
             return redirect()->route('Sections.index');
@@ -60,27 +52,14 @@ class SectionController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
 
-
-}
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(section $section)
-    {
-        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(section $section)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
      */
     public function update(StoreSections $request)
     {
@@ -101,11 +80,11 @@ class SectionController extends Controller
 
 
             // update pivot tABLE
-//            if (isset($request->teacher_id)) {
-//                $Sections->teachers()->sync($request->teacher_id);
-//            } else {
-//                $Sections->teachers()->sync(array());
-//            }
+            if (isset($request->teacher_id)) {
+                $Sections->teachers()->sync($request->teacher_id);
+            } else {
+                $Sections->teachers()->sync(array());
+            }
 
 
             $Sections->save();
@@ -120,9 +99,11 @@ class SectionController extends Controller
 
     }
 
-
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
      */
     public function destroy(request $request)
     {
@@ -133,8 +114,6 @@ class SectionController extends Controller
 
     }
 
-
-
     public function getclasses($id)
     {
         $list_classes = Classroom::where("Grade_id", $id)->pluck("Name_Class", "id");
@@ -142,5 +121,6 @@ class SectionController extends Controller
         return $list_classes;
     }
 
-
 }
+
+?>

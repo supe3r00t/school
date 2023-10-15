@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Teachers;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Repository\TeacherRepositoryInterface;
-
 use App\Http\Requests\StoreTeachers;
 use App\Models\Gender;
 use App\Models\Specialization;
 use App\Models\Teacher;
-
-
+use Illuminate\Http\Request;
+use App\Repository\TeacherRepositoryInterface;
 
 class TeacherController extends Controller
 {
@@ -62,6 +59,12 @@ class TeacherController extends Controller
         return $this->Teacher->UpdateTeachers($request);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Request $request)
     {
         return $this->Teacher->DeleteTeachers($request);

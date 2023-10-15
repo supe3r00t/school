@@ -3,6 +3,7 @@
 use App\Http\Controllers\Classrooms\ClassroomController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Sections\SectionController;
+use App\Http\Controllers\Students\StudentController;
 use App\Http\Controllers\Teachers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,16 @@ Route::group(
 
     Route::resource('Teachers', TeacherController::class);
 
+//==============================Students============================
+
+
+//    Route::resource('Students',StudentController::class);
+
+    Route::resource('Students', 'StudentController');
+        Route::get('/Get_Sections/{id}', [App\Http\Controllers\Students\StudentController::class,'Get_Sections'])->name('Get_Sections');
+    Route::get('/Get_classrooms/{id}', [App\Http\Controllers\Students\StudentController::class,'Get_classrooms'])->name('Get_classrooms');
+
+
 
 
 //==============================Parent============================
@@ -89,11 +100,4 @@ Route::group(
 //==============================parents============================
 
 Route::view('add_parent','livewire.show_Form');
-
-
 //==============================Students============================
-Route::group(['namespace' => 'Students'], function () {
-    Route::resource('Students', 'StudentController');
-    Route::get('/Get_classrooms/{id}', 'StudentController@Get_classrooms');
-    Route::get('/Get_Sections/{id}', 'StudentController@Get_Sections');
-});
